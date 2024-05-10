@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var parentFolder string
+
 // wsgmCmd represents the wsgm command
 var wsgmCmd = &cobra.Command{
 	Use:   "wsgm",
@@ -30,6 +32,11 @@ func addCmd() {
 
 func init() {
 	addCmd()
+	wsgmCmd.Flags().StringVarP(&parentFolder, "parentFolder", "p", "", "Full path to the folder where the excel files are located")
+
+	if err := wsgmCmd.MarkFlagRequired("parentFolder"); err != nil {
+		fmt.Println(err)
+	}
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
