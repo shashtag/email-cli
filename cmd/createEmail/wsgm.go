@@ -6,6 +6,7 @@ package createemail
 import (
 	"fmt"
 
+	createemail "github.com/shashtag/soc-cli/internal/createEmail"
 	"github.com/spf13/cobra"
 )
 
@@ -22,7 +23,8 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("wsgm called")
+		createemail.CombineCSV()
+		fmt.Println("wsgm called", args)
 	},
 }
 
@@ -32,11 +34,7 @@ func addCmd() {
 
 func init() {
 	addCmd()
-	wsgmCmd.Flags().StringVarP(&parentFolder, "parentFolder", "p", "", "Full path to the folder where the excel files are located")
 
-	if err := wsgmCmd.MarkFlagRequired("parentFolder"); err != nil {
-		fmt.Println(err)
-	}
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
