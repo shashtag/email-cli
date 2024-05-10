@@ -1,4 +1,4 @@
-module github.com/shashtag/multiple-csv-to-outlook-mail-mvp
+module github.com/shashtag/soc-cli
 
 go 1.22.2
 
