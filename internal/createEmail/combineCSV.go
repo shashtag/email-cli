@@ -3,24 +3,15 @@ package createemail
 import (
 	"bufio"
 	"fmt"
+	"io/fs"
 	"os"
 )
 
 func CombineCSV() error {
 	// Get the list of files to combine.
-	folder, err := os.Open("./") //open the current directory
-	if err != nil {
-		fmt.Println("error opening directory:", err) //print error if directory is not opened
-		return err
-	}
-	defer folder.Close()                 //close the directory opened
-	filesData, err := folder.Readdir(-1) //read the files from the directory
-	if err != nil {
-		fmt.Println("error reading directory:", err) //if directory is not read properly print error message
-		return err
-	}
+	filesData := getFilesInFolder()
 
-	outputFile, err := os.Create("combined.txt")
+	outputFile, err := os.Create("combined.csv")
 	if err != nil {
 		panic(err)
 	}
@@ -58,4 +49,22 @@ func CombineCSV() error {
 		}
 	}
 	return nil
+}
+
+func getFilesInFolder() []fs.FileInfo {
+	folder, err := os.Open("./") //open the current directory
+
+	if err != nil {
+		fmt.Println("error opening directory:", err) //print error if directory is not opened
+	}
+
+	defer folder.Close() //close the directory opened
+
+	filesData, err := folder.Readdir(-1) //read the files from the directory
+
+	if err != nil {
+		fmt.Println("error reading directory:", err) //if directory is not read properly print error message
+	}
+
+	return filesData
 }
