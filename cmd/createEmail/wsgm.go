@@ -10,8 +10,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var parentFolder string
-
 // wsgmCmd represents the wsgm command
 var wsgmCmd = &cobra.Command{
 	Use:   "wsgm",
