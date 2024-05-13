@@ -5,7 +5,6 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	createemail "github.com/shashtag/soc-cli/cmd/createEmail"
@@ -51,32 +50,31 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	// viper.Set("aa", "smtp.gmail.com")
-	fmt.Println(viper.Get("aa"))
+	if err := viper.WriteConfigAs("./config.yaml"); err != nil {
+		fmt.Println(err)
+	}
 	addPalette()
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 type Config struct {
 	SMTP_SERVER string `mapstructure:"SMTP_SERVER"`
 }
 
-// initConfig reads in config file and ENV variables if set.
 func initConfig() {
 
-	// Search config in parent directory with name "app.env"
-	viper.AddConfigPath("..")
-	viper.SetConfigType("env")
-	viper.SetConfigName("app")
+	viper.SetConfigFile("../app.env") // set the path of your environment file
 
-	viper.AutomaticEnv() // read in environment variables that match
-
-	var config Config
-	if err := viper.Unmarshal(&config); err != nil {
-		log.Fatal(err)
+	// If a config file is found, read it in.
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
+
+	// viper.Set("ddmdm", "ss")
+	// if err := viper.WriteConfigAs("../app.env"); err != nil {
+	// 	fmt.Println(err)
+	// }
 
 }
