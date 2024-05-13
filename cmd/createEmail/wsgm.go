@@ -26,6 +26,7 @@ to quickly create a Cobra application.`,
 		fmt.Println("Creating the email")
 		createemail.CreateEmail()
 		fmt.Println("Sending Email")
+		createemail.SendEmail()
 	},
 }
 
