@@ -50,9 +50,6 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	if err := viper.WriteConfigAs("./config.yaml"); err != nil {
-		fmt.Println(err)
-	}
 	addPalette()
 
 	// Cobra also supports local flags, which will only run
