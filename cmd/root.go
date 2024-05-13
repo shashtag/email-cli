@@ -12,8 +12,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
-
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "soc-cli",
@@ -30,7 +28,6 @@ to quickly create a Cobra application.`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
@@ -38,31 +35,19 @@ func Execute() {
 	}
 }
 func addPalette() {
-	// Add the command to the root command
+	// Add all the palettes of commands
 	rootCmd.AddCommand(createemail.CreateEmailCmd)
 
 }
 
 func init() {
 	cobra.OnInitialize(initConfig)
-
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
 	addPalette()
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-}
-
-type Config struct {
-	SMTP_SERVER string `mapstructure:"SMTP_SERVER"`
 }
 
 func initConfig() {
 
-	viper.SetConfigFile("../app.env") // set the path of your environment file
+	viper.SetConfigFile("../app.env")
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
