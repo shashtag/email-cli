@@ -19,11 +19,13 @@ func CombineCSV() error {
 
 	// Combine the files.
 	for i, filename := range filesData {
-		// Open the file.
-		file, err := os.Open(filename.Name())
-		if err != nil {
-			panic(err)
+		// Skip the output file.
+		if filename.Name() == "combined.csv" {
+			fmt.Println("Skipping output file : make sure to delete/rename the file before running the command again")
+			continue
 		}
+
+		file := openFile(filename.Name())
 		defer file.Close()
 
 		// Create a new scanner to read the file line by line.
@@ -38,12 +40,14 @@ func CombineCSV() error {
 		for scanner.Scan() {
 			_, err := outputFile.Write(scanner.Bytes())
 			if err != nil {
+				fmt.Println("error writing to output file : ", err)
 				panic(err)
 			}
 
 			// Write a newline character to the output file.
 			_, err = outputFile.Write([]byte("\n"))
 			if err != nil {
+				fmt.Println("error writing to output file : ", err)
 				panic(err)
 			}
 		}
@@ -67,4 +71,17 @@ func getFilesInFolder() []fs.FileInfo {
 	}
 
 	return filesData
+}
+
+// func addDataToOutputFile(outputFile *os.File) {
+
+// }
+
+func openFile(filename string) *os.File {
+	file, err := os.Open(filename)
+	if err != nil {
+		fmt.Println("error opening file : ", filename, err)
+		panic(err)
+	}
+	return file
 }
