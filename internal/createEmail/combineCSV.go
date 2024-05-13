@@ -73,10 +73,6 @@ func getFilesInFolder() []fs.FileInfo {
 	return filesData
 }
 
-// func addDataToOutputFile(outputFile *os.File) {
-
-// }
-
 func openFile(filename string) *os.File {
 	file, err := os.Open(filename)
 	if err != nil {
