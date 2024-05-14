@@ -57,17 +57,15 @@ func CombineCSV() error {
 
 func getFilesInFolder() []fs.FileInfo {
 	folder, err := os.Open("./") //open the current directory
-
 	if err != nil {
-		fmt.Println("error opening directory:", err) //print error if directory is not opened
+		fmt.Println("error opening directory:", err)
 	}
 
 	defer folder.Close() //close the directory opened
 
 	filesData, err := folder.Readdir(-1) //read the files from the directory
-
 	if err != nil {
-		fmt.Println("error reading directory:", err) //if directory is not read properly print error message
+		fmt.Println("error reading directory:", err)
 	}
 
 	return filesData
