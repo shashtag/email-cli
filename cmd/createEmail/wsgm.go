@@ -5,6 +5,7 @@ package createemail
 
 import (
 	"fmt"
+	"log"
 
 	createemail "github.com/shashtag/soc-cli/internal/createEmail"
 	"github.com/spf13/cobra"
@@ -19,9 +20,12 @@ var wsgmCmd = &cobra.Command{
 		fmt.Println("Combining all the CSV files")
 		createemail.CombineCSV()
 		fmt.Println("Creating the email")
-		createemail.CreateEmail()
+		table, err := createemail.CreateEmail()
+		if err != nil {
+			log.Fatal("could not create email : ", err)
+		}
 		fmt.Println("Sending Email")
-		createemail.SendEmail()
+		createemail.SendEmail(table)
 	},
 }
 

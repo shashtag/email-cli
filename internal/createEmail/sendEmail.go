@@ -9,9 +9,9 @@ import (
 	"github.com/spf13/viper"
 )
 
-func SendEmail() error {
+func SendEmail(table string) error {
 	headers := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";"
-	msg := "Subject:" + "wsgm" + "\n" + headers + "\n\n" + "<div>Hi, This is a test email</div>"
+	msg := "Subject:" + "wsgm" + "\n" + headers + "\n\n" + table
 	auth := smtp.PlainAuth("", viper.GetString("Email"), viper.GetString("Password"), viper.GetString("SMTP_SERVER"))
 	err := smtp.SendMail(viper.GetString("SMTP_SERVER")+":587", auth, "shashwatsatna@gmail.com", []string{"shashwatsatna@gmail.com"}, []byte(msg))
 	if err != nil {

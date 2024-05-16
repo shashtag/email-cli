@@ -7,11 +7,11 @@ import (
 	"os"
 )
 
-func CreateEmail() error {
+func CreateEmail() (string, error) {
 	file, err := os.Open("./combined.csv")
 	if err != nil {
 		fmt.Println(err)
-		return nil
+		return "", nil
 	}
 	defer file.Close()
 
@@ -22,7 +22,7 @@ func CreateEmail() error {
 	header, err := reader.Read()
 	if err != nil {
 		fmt.Println(err)
-		return nil
+		return "", nil
 	}
 
 	// Create a new HTML table
@@ -40,7 +40,7 @@ func CreateEmail() error {
 		}
 		if err != nil {
 			fmt.Println(err)
-			return nil
+			return "", nil
 		}
 
 		// Add the row to the HTML table
@@ -56,5 +56,5 @@ func CreateEmail() error {
 
 	// Print the HTML table
 	fmt.Println(table)
-	return nil
+	return table, nil
 }
