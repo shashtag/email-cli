@@ -7,14 +7,14 @@ import (
 	"fmt"
 	"os"
 
-	createemail "github.com/shashtag/soc-cli/cmd/createEmail"
+	createemail "github.com/shashtag/email-cli/cmd/createEmail"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "soc-cli",
+	Use:   "email-cli",
 	Short: "",
 	Long:  ``,
 	// Uncomment the following line if your bare application
@@ -42,7 +42,10 @@ func init() {
 
 func initConfig() {
 
-	viper.SetConfigFile("../app.env")
+	home, err := os.UserHomeDir()
+	cobra.CheckErr(err)
+
+	viper.SetConfigFile(home + "/email-cli.env")
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {

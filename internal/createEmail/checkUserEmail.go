@@ -1,0 +1,5 @@
+package createemail
+
+func CheckUserEmail() {
+
+}

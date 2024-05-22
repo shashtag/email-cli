@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"log"
 
-	createemail "github.com/shashtag/soc-cli/internal/createEmail"
+	createemail "github.com/shashtag/email-cli/internal/createEmail"
 	"github.com/spf13/cobra"
 )
 
