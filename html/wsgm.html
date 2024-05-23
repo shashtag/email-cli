@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      table,
+      td,
+      tr {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      .fw-600 {
+        font-weight: 600;
+      }
+      td {
+        padding-right: 2rem;
+        padding-left: 0.5rem;
+      }
+    </style>
+  </head>
+  <body style="overflow-x: scroll">
+    <div>Hello All,</div>
+    <br />
+    <div>
+      We have received alerts for
+      <strong>Windows security group created or modified</strong> from the below
+      mentioned accounts. Please go through the logs and provide us with a
+      reference number or a or screenshot that confirms the legitimacy of the
+      activity.Let us know if more information is required from out end.
+    </div>
+
+    <div style="padding: 0.5rem">
+      <div
+        style="
+          margin-bottom: 0.5rem;
+          text-align: center;
+          border: black 2px solid;
+          background-color: gray;
+          font-size: 1.25rem;
+          font-weight: 900;
+        ">
+        SOC SECURITY INCIDENT NOTIFICATION
+      </div>
+      <table>
+        <tr>
+          <td>
+            <span class="fw-600">Ticket ID/Sentinel ID</span> :
+            {datadnndndndndndndndn } / {datadnndndndndndndndn} /
+            {datadnndndndndndndndn}
+          </td>
+          <td><span class="fw-600"> Severity </span> : Low</td>
+          <td>
+            <span class="fw-600">Client Name/Enviroment</span> : 'arcplogeuw01'
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="fw-600">Impacted CI/IP</span> : {datadnndndndndndndndn}
+          </td>
+          <td>
+            <span class="fw-600">Detected User</span> : {datadnndndndndndndndn}
+          </td>
+          <td><span class="fw-600">OS Type</span> : Windows</td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span class="fw-600">Reported Date/Time(UTC)</span> :
+            {datadnndndndndndndndn}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span class="fw-600">Incident Description</span> : This alert will
+            be triggered when Windows security group is created or modified on
+            the computer
+          </td>
+        </tr>
+      </table>
+      <table style="margin-top: 2rem">
+        <tr style="background-color: gray; font-size: 1.1rem">
+          Additional Finding
+        </tr>
+        <tr style="font-size: 0.8rem; border-bottom: 0px">
+          <td style="border-bottom: 0px">Logs :</td>
+        </tr>
+        <tr style="border-top: 0px">
+          <td style="border-top: 0px">
+            <table style="margin-top: 0.5rem">
+              <tr class="fw-600">
+                <td>TimeGenerated [UTC]</td>
+                <td>Account</td>
+                <td>Computer</td>
+                <td>configurationitem</td>
+                <td>EventID</td>
+                <td>Activity</td>
+                <td>TargetAccount</td>
+                <td>MemberName</td>
+                <td>MemberSid</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table style="margin-top: 2rem">
+        <tr style="background-color: gray; font-size: 1.1rem">
+          Required Actions
+        </tr>
+        <tr>
+          <ul>
+            <li>
+              Please confirm the legitimacy of the detected activity If yes,
+            </li>
+            <li>please provide business justification for this activity.</li>
+          </ul>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

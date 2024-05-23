@@ -6,8 +6,10 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path"
+	"runtime"
 
-	createemail "github.com/shashtag/email-cli/cmd/createEmail"
+	"github.com/shashtag/email-cli/cmd/createEmail/wsgm"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -31,13 +33,12 @@ func Execute() {
 }
 func addPalette() {
 	// Add all the palettes of commands
-	rootCmd.AddCommand(createemail.CreateEmailCmd)
 
 }
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	addPalette()
+	rootCmd.AddCommand(wsgm.WsgmCmd)
 }
 
 func initConfig() {
@@ -52,9 +53,8 @@ func initConfig() {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
 
-	// viper.Set("ddmdm", "ss")
-	// if err := viper.WriteConfigAs("../app.env"); err != nil {
-	// 	fmt.Println(err)
-	// }
-
+	//set rood directory for the project
+	_, b, _, _ := runtime.Caller(0)
+	d := path.Join(path.Dir(b), "../")
+	viper.Set("ROOT_DIR", d)
 }

@@ -31,7 +31,7 @@ func CombineCSV() error {
 		// Create a new scanner to read the file line by line.
 		scanner := bufio.NewScanner(file)
 
-		// Skip the first line of the file, except for the first file.
+		// Skip the first line of the file
 		if i > 0 {
 			scanner.Scan()
 		}
