@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+
+	"github.com/pterm/pterm"
 )
 
 func CombineCSV() error {
@@ -13,7 +15,7 @@ func CombineCSV() error {
 
 	outputFile, err := os.Create("combined.csv")
 	if err != nil {
-		panic(err)
+		return fmt.Errorf("error creating output file : %w", err)
 	}
 	defer outputFile.Close()
 
@@ -21,7 +23,6 @@ func CombineCSV() error {
 	for i, filename := range filesData {
 		// Skip the output file.
 		if filename.Name() == "combined.csv" {
-			fmt.Println("Skipping output file : make sure to delete/rename the file before running the command again")
 			continue
 		}
 
@@ -40,15 +41,13 @@ func CombineCSV() error {
 		for scanner.Scan() {
 			_, err := outputFile.Write(scanner.Bytes())
 			if err != nil {
-				fmt.Println("error writing to output file : ", err)
-				panic(err)
+				pterm.Fatal.Println("error writing to output file : ", err)
 			}
 
 			// Write a newline character to the output file.
 			_, err = outputFile.Write([]byte("\n"))
 			if err != nil {
-				fmt.Println("error writing to output file : ", err)
-				panic(err)
+				pterm.Fatal.Println("error writing to output file : ", err)
 			}
 		}
 	}
@@ -58,14 +57,15 @@ func CombineCSV() error {
 func getFilesInFolder() []fs.FileInfo {
 	folder, err := os.Open("./") //open the current directory
 	if err != nil {
-		fmt.Println("error opening directory:", err)
+		pterm.Fatal.Println("error opening directory:", err)
 	}
 
 	defer folder.Close() //close the directory opened
 
 	filesData, err := folder.Readdir(-1) //read the files from the directory
 	if err != nil {
-		fmt.Println("error reading directory:", err)
+		pterm.Fatal.Println("error reading directory:", err)
+
 	}
 
 	return filesData
@@ -74,8 +74,7 @@ func getFilesInFolder() []fs.FileInfo {
 func openFile(filename string) *os.File {
 	file, err := os.Open(filename)
 	if err != nil {
-		fmt.Println("error opening file : ", filename, err)
-		panic(err)
+		pterm.Fatal.Println("error opening file : ", filename, err)
 	}
 	return file
 }

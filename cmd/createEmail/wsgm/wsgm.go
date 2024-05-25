@@ -20,7 +20,7 @@ var WsgmCmd = &cobra.Command{
 		fmt.Println("Combining all the CSV files")
 		createemail.CombineCSV()
 		fmt.Println("Creating the email")
-		table, err := createemail.CreateEmail()
+		table, _, err := createemail.CreateEmail()
 		if err != nil {
 			log.Fatal("could not create email : ", err)
 		}

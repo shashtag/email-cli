@@ -2,6 +2,7 @@ package createemail
 
 import (
 	"bytes"
+	"encoding/csv"
 	"fmt"
 	"os"
 	"text/template"
@@ -11,35 +12,35 @@ import (
 	"github.com/spf13/viper"
 )
 
-func CreateEmail() (string, error) {
+func CreateEmail() (string, string, error) {
 	file, err := os.Open("./combined.csv")
 	if err != nil {
-		fmt.Println(err)
-		return "", nil
+		pterm.Fatal.Println("could not open the file : ", err)
 	}
 	defer file.Close()
 
-	inputIncidentNumbers()
+	firstIncident, incidentList := inputIncidentNumbers()
 
 	// Create a new CSV reader
-	// reader := csv.NewReader(file)
+	reader := csv.NewReader(file)
 
 	// Read the header row
-	// header, err := reader.Read()
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return "", nil
-	// }
+	header, err := reader.Read()
+	if err != nil {
+		pterm.Fatal.Println("could not read the header row : ", err)
+	}
 
 	//parse the html template file
 	var html bytes.Buffer
-	tmpl, err := template.ParseFiles(viper.GetString("ROOT_DIR") + "/html/wsgm.html")
+	tmpl, err := template.ParseFiles(viper.GetString("PROJECT_ROOT_DIR") + "/html/wsgm.html")
 	if err != nil {
-		fmt.Println(err)
-		return "", nil
+		pterm.Fatal.Println("could not parse the html file : ", err)
 	}
 
-	tmpl.Execute(&html, nil)
+	tmpl.Execute(&html, struct {
+		IncidentList string
+		Header       []string
+	}{IncidentList: incidentList, Header: header})
 
 	fmt.Println(html.String())
 
@@ -74,7 +75,7 @@ func CreateEmail() (string, error) {
 
 	// // Print the HTML table
 	// fmt.Println(table)
-	return html.String(), nil
+	return html.String(), firstIncident, nil
 }
 
 func getNumberOfIncidents() int {
@@ -100,9 +101,8 @@ func inputIncidentNumbers() (string, string) {
 		}
 
 		result, err := prompt.Run()
-		if err == nil {
-			pterm.Error.Println(err)
-			fmt.Printf("pterm.Error.Fatal: %v\n", pterm.Error.Fatal)
+		if err != nil {
+			pterm.Fatal.Println(err)
 		}
 
 		if i == 0 {

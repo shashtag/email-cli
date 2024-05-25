@@ -53,8 +53,12 @@ func initConfig() {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
 
-	//set rood directory for the project
+	setRootDirectory()
+}
+
+func setRootDirectory() {
+	//set the project root directory in viper
 	_, b, _, _ := runtime.Caller(0)
 	d := path.Join(path.Dir(b), "../")
-	viper.Set("ROOT_DIR", d)
+	viper.Set("PROJECT_ROOT_DIR", d)
 }
